@@ -50,7 +50,7 @@ const questions = [
     name: 'license',
     message: "What license would you like for this project?",
     choices: [
-      new inquirer.Separator(' = License = '),
+      new inquirer.Separator(' --- Use the spacebar to make your selection --- '),
         {
             name: 'Apache License 2.0',
         },
@@ -94,11 +94,11 @@ const questions = [
   }
 ];
 
+const { license } = answers
+
 inquirer.prompt(questions).then((answers) => {
-  console.log(answers, null, '  ');
-//   module.exports = {
-//   license
-// }
+  console.log(JSON.stringify(answers, null, '  '));
+   module.exports = license
 });
 
 
