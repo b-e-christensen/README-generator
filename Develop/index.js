@@ -50,6 +50,7 @@ const questions = [
     name: 'license',
     message: "What license would you like for this project?",
     choices: [
+      new inquirer.Separator(' = License = '),
         {
             name: 'Apache License 2.0',
         },
@@ -92,6 +93,15 @@ const questions = [
     ]
   }
 ];
+
+inquirer.prompt(questions).then((answers) => {
+  console.log(answers, null, '  ');
+//   module.exports = {
+//   license
+// }
+});
+
+
 
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {}
