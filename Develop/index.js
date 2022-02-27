@@ -1,5 +1,8 @@
 // TODO: Include packages needed for this application
 const inquirer = require('inquirer');
+const fs = require('fs');
+const markdown = require('./utils/generateMarkdown.js')
+
 // TODO: Create an array of questions for user input
 
 /* Input required: 
@@ -14,7 +17,8 @@ SECTIONS
 8. Tests
 9. Questions
  */
-const questions = [
+const promptUser = () => {
+  return inquirer.prompt([
   {
     type: 'input',
     name: 'title',
@@ -46,68 +50,33 @@ const questions = [
     message: "How would you like people to reach you with any additional questions?",
   },
   {
-    type: 'checkbox',
+    type: 'list',
     name: 'license',
     message: "What license would you like for this project?",
-    choices: [
-      new inquirer.Separator(' --- Use the spacebar to make your selection --- '),
-        {
-            name: 'Apache License 2.0',
-        },
-        {
-            name: 'GNU General Public License v3.0',
-        },
-        {
-            name: 'MIT License',
-        },
-        {
-            name: 'BSD 2-Clause "Simplified" License',
-        },
-        {
-            name: 'BSD 3-Clause "New" or "Revised" License',
-        },
-        {
-            name: 'Boost Software License 1.0',
-        },
-        {
-            name: 'Creative Commons Zero v1.0 Universal',
-        },
-        {
-            name: 'Eclipse Public License 2.0',
-        },
-        {
-            name: 'GNU Affero General Public License v3.0',
-        },
-        {
-            name: 'GNU General Public License v2.0',
-        },
-        {
-            name: 'GNU Lesser General Public License v2.1',
-        },
-        {
-            name: 'Mozilla Public License 2.0',
-        },
-        {
-            name: 'The Unlicense',
-        },
-    ]
-  }
-];
-
-const { license } = answers
-
-inquirer.prompt(questions).then((answers) => {
-  console.log(JSON.stringify(answers, null, '  '));
-   module.exports = license
-});
-
-
+    choices: [ 'Apache License 2.0', 'GNU General Public License v3.0', 'MIT License', 'BSD 2-Clause "Simplified" License', 'BSD 3-Clause "New" or "Revised" License', 'Boost Software License 1.0', 'Creative Commons Zero v1.0 Universal', 'Eclipse Public License 2.0', 'GNU Affero General Public License v3.0', 'GNU General Public License v2.0', 'GNU Lesser General Public License v2.1', 'Mozilla Public License 2.0', 'The Unlicense' ]
+  },
+]);
+};
 
 // TODO: Create a function to write README file
-function writeToFile(fileName, data) {}
+// function writeToFile(fileName, data) {}
 
 // TODO: Create a function to initialize app
-function init() {}
+function init() {
+  promptUser()
+  // .then((answers) => markdown.generateMarkdownLicensing(answers))
+  // Use writeFileSync method to use promises instead of a callback function
+  .then((answers) => fs.writeFileSync('README.md', markdown.generateMarkdown(answers)))
+  .then(() => console.log('Successfully wrote to README.md'))
+  .catch((err) => console.error(err));
+}
+
+  // Use writeFileSync method to use promises instead of a callback function
+//   .then((answers) => fs.writeFileSync('README.md', markdown.generateMarkdown(answers)))
+//   .then(() => console.log('Successfully wrote to README.md'))
+//   .catch((err) => console.error(err));
+// 
+
 
 // Function call to initialize app
 init();

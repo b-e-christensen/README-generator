@@ -1,8 +1,10 @@
-const { license } = require("..");
-// TODO: Create a function that returns a license badge based on which license is passed in
-// If there is no license, return an empty string
+
+
+let licenseLink;
+let licenseBadge;
+let licenseSection;
+
 function renderLicenseBadge(license) {
-  let licenseBadge = ''
   switch(license){
     case 'Apache License 2.0':
     return licenseBadge = 'https://img.shields.io/badge/License-Apache_2.0-blue.svg';
@@ -10,9 +12,9 @@ function renderLicenseBadge(license) {
     return licenseBadge = 'https://img.shields.io/badge/License-GPLv3-blue.svg';
     case 'MIT License':
     return licenseBadge = 'https://img.shields.io/badge/License-MIT-yellow.svg';
-    case 'BSD 2-Clause "Simplified" License':
+    case 'BSD 2-Clause \"Simplified\" License':
     return licenseBadge = 'https://img.shields.io/badge/License-BSD_2--Clause-orange.svg';
-    case 'BSD 3-Clause "New" or "Revised" License':
+    case 'BSD 3-Clause \"New\" or \"Revised\" License':
     return licenseBadge = 'https://img.shields.io/badge/License-BSD_3--Clause-blue.svg';
     case 'Boost Software License 1.0':
     return licenseBadge = 'https://img.shields.io/badge/License-Boost_1.0-lightblue.svg';
@@ -29,14 +31,14 @@ function renderLicenseBadge(license) {
     case 'The Unlicense':
     return licenseBadge = 'https://img.shields.io/badge/license-Unlicense-blue.svg';
     default:
-      return licenseBadge;
+      return licenseBadge= '';
   }
 }
 
 
 // If there is no license, return an empty string
 function renderLicenseLink(license) {
-  let licenseLink = ''
+  
   switch(license){
     case 'Apache License 2.0':
     return licenseLink = 'https://opensource.org/licenses/Apache-2.0';
@@ -44,9 +46,9 @@ function renderLicenseLink(license) {
     return licenseLink = 'https://www.gnu.org/licenses/gpl-3.0';
     case 'MIT License':
     return licenseLink = 'https://opensource.org/licenses/MIT';
-    case 'BSD 2-Clause "Simplified" License':
+    case 'BSD 2-Clause \"Simplified\" License':
     return licenseLink = 'https://opensource.org/licenses/BSD-2-Clause';
-    case 'BSD 3-Clause "New" or "Revised" License':
+    case 'BSD 3-Clause \"New\" or \"Revised\" License':
     return licenseLink = 'https://opensource.org/licenses/BSD-3-Clause';
     case 'Boost Software License 1.0':
     return licenseLink = 'https://www.boost.org/LICENSE_1_0.txt';
@@ -63,25 +65,83 @@ function renderLicenseLink(license) {
     case 'The Unlicense':
     return licenseLink = 'http://unlicense.org/';
     default:
-      return licenseLink;
+      return licenseLink = '';
   }
 }
 
 // TODO: Create a function that returns the license section of README
 // If there is no license, return an empty string
-function renderLicenseSection(license) {}
-
-renderLicenseBadge(license)
-renderLicenseLink(license)
-// TODO: Create a function to generate markdown for README
-function generateMarkdown(data) {
-  return `# ${data.title}
-
-`;
+function renderLicenseSection(license) {
+  switch(license){
+    case 'Apache License 2.0':
+    return licenseSection = 'Apache';
+    case 'GNU General Public License v3.0':
+    return licenseSection = 'GNU';
+    case 'MIT License':
+    return licenseSection = 'MIT';
+    case 'BSD 2-Clause \"Simplified\" License':
+    return licenseSection = 'BSD';
+    case 'BSD 3-Clause \"New\" or \"Revised\" License':
+    return licenseSection = 'BSD';
+    case 'Boost Software License 1.0':
+    return licenseSection = 'Boost';
+    case 'Creative Commons Zero v1.0 Universal':
+    return licenseSection = 'Creative Commons';
+    case 'Eclipse Public License 2.0':
+    return licenseSection = 'Eclipse';
+    case 'GNU Affero General Public License v3.0':
+    return licenseSection = 'GNU';
+    case 'GNU General Public License v2.0':
+    return licenseSection = 'GNU';
+    case 'Mozilla Public License 2.0':
+    return licenseSection = 'Mozilla';
+    case 'The Unlicense':
+    return licenseSection = 'The Unlicense';
+    default:
+      return licenseSection= '';
+}
 }
 
-module.exports = generateMarkdown;
+// TODO: Create a function to generate markdown for README
+function generateMarkdown(data) {
+  renderLicenseBadge(data.license)
+  renderLicenseLink(data.license)
+  renderLicenseSection(data.license)
+  return `# ${data.title} &middot; [![GitHub license](${licenseBadge})](${licenseLink})   
+    
+   
+  ${data.description}  
+     
+  ## Table of Contents  
+  &middot; [Installation](#installation)  
+  &middot; [Contributing](#contributing)  
+  &middot; [Test](#test)  
+  &middot; [Questions](#questions)  
+  &middot; [License](#license)  
+  
+  # Installation  
+  
+  ${data.installation}  
+   
+  # Contributing  
+    
+  ${data.contributing}  
+   
+  # Test  
+    
+  ${data.test}  
+   
+  # Questions  
+    
+  ${data.question}  
+   
+  # License  
+    
+  This project is <a href="${licenseLink}" target="_blank">${licenseSection}</a> licensed.`  
+}
 
 
 
-
+module.exports = {
+  generateMarkdown
+}
