@@ -3,7 +3,7 @@
 let licenseLink;
 let licenseBadge;
 let licenseSection;
-
+// Renders badge img 
 function renderLicenseBadge(license) {
   switch(license){
     case 'Apache License 2.0':
@@ -36,7 +36,7 @@ function renderLicenseBadge(license) {
 }
 
 
-// If there is no license, return an empty string
+// Renders link to license info
 function renderLicenseLink(license) {
   
   switch(license){
@@ -69,8 +69,7 @@ function renderLicenseLink(license) {
   }
 }
 
-// TODO: Create a function that returns the license section of README
-// If there is no license, return an empty string
+// Generates the info for llicense section of README. 
 function renderLicenseSection(license) {
   switch(license){
     case 'Apache License 2.0':
@@ -102,13 +101,12 @@ function renderLicenseSection(license) {
 }
 }
 
-// TODO: Create a function to generate markdown for README
+// Uses user input from index.js to generate markdown. Also runs the render badge/link/section functions to populate those areas.
 function generateMarkdown(data) {
   renderLicenseBadge(data.license)
   renderLicenseLink(data.license)
   renderLicenseSection(data.license)
   return `# ${data.title} &middot; [![GitHub license](${licenseBadge})](${licenseLink})   
-    
    
   ${data.description}  
      
@@ -133,7 +131,8 @@ function generateMarkdown(data) {
    
   # Questions  
     
-  ${data.question}  
+  GitHub: https://github.com/${data.github}  
+  Email: ${data.email}
    
   # License  
     

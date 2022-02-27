@@ -1,22 +1,9 @@
-// TODO: Include packages needed for this application
+// Packages needed for application
 const inquirer = require('inquirer');
 const fs = require('fs');
 const markdown = require('./utils/generateMarkdown.js')
 
-// TODO: Create an array of questions for user input
-
-/* Input required: 
-1. Title
-SECTIONS
-2. Description
-3. Table of Contents //dont need to ask a question for this one, but rather just generate anchor tags of inputs.
-4. Installation
-5. Usage
-6. License
-7. Contrubuting 
-8. Tests
-9. Questions
- */
+// Series of questions presented to the user. Inputs of these questions go on to populate the markdown generator.
 const promptUser = () => {
   return inquirer.prompt([
   {
@@ -46,8 +33,13 @@ const promptUser = () => {
   },
   {
     type: 'input',
-    name: 'question',
-    message: "How would you like people to reach you with any additional questions?",
+    name: 'github',
+    message: "What is your GitHub user name for people to reach you with any additional questions?",
+  },
+  {
+    type: 'input',
+    name: 'email',
+    message: "What is your email for people to reach you with any additional questions?",
   },
   {
     type: 'list',
@@ -58,25 +50,13 @@ const promptUser = () => {
 ]);
 };
 
-// TODO: Create a function to write README file
-// function writeToFile(fileName, data) {}
-
-// TODO: Create a function to initialize app
+// Runs the function that initialized asking the user all the questions, then generates the markdown and writes it to the file system. 
 function init() {
   promptUser()
-  // .then((answers) => markdown.generateMarkdownLicensing(answers))
-  // Use writeFileSync method to use promises instead of a callback function
   .then((answers) => fs.writeFileSync('README.md', markdown.generateMarkdown(answers)))
   .then(() => console.log('Successfully wrote to README.md'))
   .catch((err) => console.error(err));
 }
-
-  // Use writeFileSync method to use promises instead of a callback function
-//   .then((answers) => fs.writeFileSync('README.md', markdown.generateMarkdown(answers)))
-//   .then(() => console.log('Successfully wrote to README.md'))
-//   .catch((err) => console.error(err));
-// 
-
 
 // Function call to initialize app
 init();
