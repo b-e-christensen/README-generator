@@ -1,6 +1,8 @@
 # README Generator &middot; [![GitHub license](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)   
    
   This application takes a lot of the grunt work out of making a README. Using Node.js it asks you for several inputs (title, description, installation method, how to contribute, test instructions, section for fielding questions, and licensing) and uses that information to populate a README template. The structure is based off of what are considered to be some of the more professional README's out there. All it requires of you is to have a great understanding of your application.   
+
+  ![gif of how to work the app](./Develop/assets/readme-gen-gif.gif)
      
   ## Table of Contents  
   &middot; [Installation](#installation)  
